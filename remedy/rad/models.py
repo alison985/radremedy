@@ -46,6 +46,22 @@ resourcepopulation = db.Table(
     )
 )
 
+resourcelanguage = db.Table(
+    'resourcelanguage',
+    db.Column(
+        'resource_id',
+        db.Integer,
+        db.ForeignKey('resource.id'),
+        primary_key=True
+    ),
+    db.Column(
+        'language_id',
+        db.Integer,
+        db.ForeignKey('language.id'),
+        primary_key=True
+    )
+)
+
 userpopulation = db.Table(
     'userpopulation',
     db.Column(
@@ -165,6 +181,12 @@ class Resource(db.Model):
         primaryjoin='and_(Resource.id==ResourceReviewScore.resource_id, '
                     'ResourceReviewScore.population_id==0)')
 
+    additional_languages_spoken = db.relationship(
+        'AdditionalLanguagesSpoken',
+        secondary=resourcelanguage,
+        backref=db.backref('resources', lazy='dynamic')
+        )
+
     def __unicode__(self):
         return self.name
 
@@ -268,6 +290,24 @@ class Population(db.Model):
     def __unicode__(self):
         return self.name
 
+class Language(db.Model):
+    """
+    A language to which one or more resources can belong. (i.e. languages a provider can speak)
+    """
+    id = db.Column(db.Integer, primary_key=True)
+
+    name = db.Column(db.Unicode(100), nullable=False, unique=True)
+    description = db.Column(db.UnicodeText)
+
+    visible = db.Column(db.Boolean, nullable=False, default=True)
+
+    date_created = db.Column(
+        db.DateTime,
+        nullable=False,
+        default=datetime.utcnow)
+
+    def __unicode__(self):
+        return self.name
 
 class User(UserMixin, db.Model):
     """

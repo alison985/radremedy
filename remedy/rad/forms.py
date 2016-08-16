@@ -214,6 +214,15 @@ class ProviderFieldsMixin(object):
         ]
     )
 
+    additional_languages_spoken = GroupedSelectMultipleField(
+        label='Additional Languages Spoken',
+        coerce=int,
+        description='Check as many languages are are applicable.',
+        validators=[
+            Optional()
+        ]
+    )
+
 
 class ReviewFieldsMixin(object):
     """
