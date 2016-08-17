@@ -223,6 +223,54 @@ class ProviderFieldsMixin(object):
         ]
     )
 
+    type_of_practice = GroupedSelectMultipleField(
+        label='Type of Practice',
+        coerce=int,
+        description='Which of the following best describes where you practice? If you serve ' + 
+            'in multiple settings, please check all that apply. Even if you are not a medical provider, ' + 
+            'please let us know, to the best of your ability, how your practice is set-up.',
+        validators=[
+            Optional()
+        ]
+    )
+
+    tgiq_education = TextAreaField(
+        'Education about Trans, Gender Non-Conforming, Intersex, and Queer People',
+        description='Have you and your staff received any specialized education or training around ' + 
+            'providing services to TGIQ people? What types of education? How often?',
+        validators=[
+            Optional()
+        ]
+    )
+
+    theory_of_affirming_care = TextAreaField(
+        'Theory of Affirming Care',
+        description='How do you approach providing care to TGIQ folks? How do you define safe and affirming' + 
+            ' care for TGIQ folks?',
+        validators=[
+            Optional()
+        ]
+    )
+
+    youth_services = TextAreaField(
+        'Youth Services',
+        description='If you treat young people, what services do you provide to TGIQ youth? ' + 
+            'How do you protect their confidentiality? Do you require parental consent?',
+        validators=[
+            Optional()
+        ]
+    )
+
+    patients_with_disabilities = TextAreaField(
+        'Patients With Disabilities',
+        description = 'How does your practice/organization accommodate persons with disabilities during ' + 
+            'their visit? Do you have specialized equipment (such as scales or transfers)? Do you have ' + 
+            'personal assistants available? Do you have braille forms available?',
+        validators=[
+            Optional()
+        ] 
+    )
+
 
 class ReviewFieldsMixin(object):
     """

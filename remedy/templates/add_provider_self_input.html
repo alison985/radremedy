@@ -63,6 +63,7 @@ If you need any help, clarity, or guidance, please contact info@radremedy.org fo
   {{ macros.form_group(form.office_hours) }}
   {{ macros.form_group(form.categories, **{"data-nounplural": "services", "rows": "6"}) }}
   {{ macros.form_group(form.populations, **{"data-nounplural": "populations", "rows": "6"}) }}
+  {{ macros.form_group(form.type_of_practice) }}
 
   {{ macros.form_group(form.hospital_affiliation) }}
   {{ macros.form_group(form.is_icath) }}
@@ -71,6 +72,15 @@ If you need any help, clarity, or guidance, please contact info@radremedy.org fo
   {{ macros.form_group(form.has_sliding_scale) }}
 
   <hr />
+
+  <h3>
+    Serving TGIQ Population Information
+  </h3>
+
+  {{ macros.form_group(form.tgiq_education) }}
+  {{ macros.form_group(form.theory_of_affirming_care) }}
+  {{ macros.form_group(form.youth_services) }}
+  {{ macros.form_group(form.patients_with_disabilities) }}
 
   <h3>
     Other Information

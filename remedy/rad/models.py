@@ -62,6 +62,22 @@ resourcelanguage = db.Table(
     )
 )
 
+resourcepracticetypes = db.Table(
+    'resourcepracticetypes',
+    db.Column(
+        'resource_id',
+        db.Integer,
+        db.ForeignKey('resource.id'),
+        primary_key=True
+    ),
+    db.Column(
+        'practicetype_id',
+        db.Integer,
+        db.ForeignKey('practicetype.id'),
+        primary_key=True
+    )
+)
+
 userpopulation = db.Table(
     'userpopulation',
     db.Column(
@@ -187,6 +203,17 @@ class Resource(db.Model):
         backref=db.backref('resources', lazy='dynamic')
         )
 
+    type_of_practice = db.relationship(
+        'TypeofPractice',
+        secondary=resourcepracticetypes,
+        backref=db.backref('practicetypes', lazy='dynamic')
+        )
+
+    tgiq_education = db.Column(db.UnicodeText)
+    theory_of_affirming_care = db.Column(db.UnicodeText)
+    youth_services = db.Column(db.UnicodeText)
+    patients_with_disabilities = db.Column(db.UnicodeText)
+
     def __unicode__(self):
         return self.name
 
@@ -293,6 +320,25 @@ class Population(db.Model):
 class Language(db.Model):
     """
     A language to which one or more resources can belong. (i.e. languages a provider can speak)
+    """
+    id = db.Column(db.Integer, primary_key=True)
+
+    name = db.Column(db.Unicode(100), nullable=False, unique=True)
+    description = db.Column(db.UnicodeText)
+
+    visible = db.Column(db.Boolean, nullable=False, default=True)
+
+    date_created = db.Column(
+        db.DateTime,
+        nullable=False,
+        default=datetime.utcnow)
+
+    def __unicode__(self):
+        return self.name
+
+class PracticeType(db.Model):
+    """
+    A type of practice to which one or more resources can belong. (i.e. Trans-Specific Health Center)
     """
     id = db.Column(db.Integer, primary_key=True)
 
